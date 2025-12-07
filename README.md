@@ -283,15 +283,8 @@ NEXT_PUBLIC_SKIP_AUTH=false
 
 ## 👥 팀원
 
-- Frontend Developer
-- Backend Developer
-- Designer
-
-## 🔗 관련 링크
-
-- [프로젝트 데모](링크)
-- [API 문서](링크)
-- [디자인 시안](링크)
+- Frontend Developer 김영욱 이윤경
+- Backend Developer  김동현 우연정
 
 ---
 
