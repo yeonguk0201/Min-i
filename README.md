@@ -233,52 +233,38 @@ NEXT_PUBLIC_SKIP_AUTH=false
 - 텍스트/음성 답변 작성
 - AI 스토리 생성
 
-## 📸 스크린샷 추천
-
-포트폴리오에 포함하면 좋을 주요 화면들:
+## 📸 예시화면
 
 1. **홈 대시보드** (`/home`)
 
    - 그룹 정보 헤더
    - 최근 콘텐츠 캐러셀
    - 액션 버튼들 (질문 만들기, 초대하기 등)
-<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/89f9846f-1a75-404a-b72c-fdf43405a8e7" />
-<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/ee6b96f6-1e8a-4b86-9d77-b6543da9b03e" />
-<img width="195" height="425" alt="Image" src="https://github.com/user-attachments/assets/b19d370c-aad0-4d62-96fc-45f826697d9a" />
-<img width="193" height="424" alt="Image" src="https://github.com/user-attachments/assets/db314304-4a04-470c-aa8e-c18c4fce83f6" />
-<img width="610" height="1021" alt="Image" src="https://github.com/user-attachments/assets/627fbf21-6114-4cc4-bc66-62a569ec6965" />
-<img width="599" height="1005" alt="Image" src="https://github.com/user-attachments/assets/52abbd79-92f6-4ba2-93ba-e29690780df3" />
+   - 
+홈<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/bfa7b97a-b454-4d0b-b584-d66411d4a982" />
 
 2. **앨범 목록** (`/groups/[id]/albums`)
 
    - 그리드 레이아웃의 앨범 카드들
    - 각 앨범의 썸네일 이미지들
+   - 
+앨범<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/7a7d7aa6-fb9d-4430-8335-148a3fa5eb77" />
+사이드바<img width="195" height="425" alt="Image" src="https://github.com/user-attachments/assets/ffaeffbe-2449-40e4-bbe0-ccb810fca21e" />
 
 3. **사진 상세 (캐러셀)** (`/groups/[id]/albums/[albumId]/photo/[photoId]`)
 
    - Embla Carousel을 활용한 스와이프 가능한 사진 뷰
    - 좋아요 버튼, 작성자 정보, 스토리 보기 기능
 
-4. **질문/답변 화면** (`/groups/[id]/albums/[albumId]/answers`)
+앨범<img width="193" height="424" alt="Image" src="https://github.com/user-attachments/assets/5f17d59c-4f3a-4a8e-87d8-6fab4239f0e5" />
+앨범 클릭<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/19b21dcb-3b1b-4d11-beb4-20dd98e6649d" />
 
-   - 질문 목록과 검색 기능
-   - 음성 녹음 버튼이 있는 답변 입력 UI
-
-5. **음성 녹음 화면** (답변 작성 중)
-
-   - 녹음 중인 상태
-   - 재생/삭제 버튼
-   - 녹음 시간 표시
-
-6. **그룹 생성/참가** (`/groups/create`, `/groups/join`)
-
-   - 그룹 생성 폼
-   - 초대 코드 입력 화면
-
-7. **프로필 및 그룹 관리** (`/profile`)
+4. **프로필 및 그룹 관리** (`/profile`)
    - 사용자 정보
    - 참여 중인 그룹 목록
    - 그룹 전환 기능
+     
+그룹<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/fb899b66-9ef4-4247-97ec-9b3e193bb88b" />
 
 ## 🔒 보안 기능
 
