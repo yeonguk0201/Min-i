@@ -264,7 +264,7 @@ NEXT_PUBLIC_SKIP_AUTH=false
    - 참여 중인 그룹 목록
    - 그룹 전환 기능
      
-그룹<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/fb899b66-9ef4-4247-97ec-9b3e193bb88b" />
+<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/fb899b66-9ef4-4247-97ec-9b3e193bb88b" />
 
 ## 🔒 보안 기능
 
