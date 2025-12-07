@@ -233,6 +233,47 @@ NEXT_PUBLIC_SKIP_AUTH=false
 - 텍스트/음성 답변 작성
 - AI 스토리 생성
 
+## 📸 스크린샷 추천
+
+포트폴리오에 포함하면 좋을 주요 화면들:
+
+1. **홈 대시보드** (`/home`)
+
+   - 그룹 정보 헤더
+   - 최근 콘텐츠 캐러셀
+   - 액션 버튼들 (질문 만들기, 초대하기 등)
+
+2. **앨범 목록** (`/groups/[id]/albums`)
+
+   - 그리드 레이아웃의 앨범 카드들
+   - 각 앨범의 썸네일 이미지들
+
+3. **사진 상세 (캐러셀)** (`/groups/[id]/albums/[albumId]/photo/[photoId]`)
+
+   - Embla Carousel을 활용한 스와이프 가능한 사진 뷰
+   - 좋아요 버튼, 작성자 정보, 스토리 보기 기능
+
+4. **질문/답변 화면** (`/groups/[id]/albums/[albumId]/answers`)
+
+   - 질문 목록과 검색 기능
+   - 음성 녹음 버튼이 있는 답변 입력 UI
+
+5. **음성 녹음 화면** (답변 작성 중)
+
+   - 녹음 중인 상태
+   - 재생/삭제 버튼
+   - 녹음 시간 표시
+
+6. **그룹 생성/참가** (`/groups/create`, `/groups/join`)
+
+   - 그룹 생성 폼
+   - 초대 코드 입력 화면
+
+7. **프로필 및 그룹 관리** (`/profile`)
+   - 사용자 정보
+   - 참여 중인 그룹 목록
+   - 그룹 전환 기능
+
 ## 🔒 보안 기능
 
 - JWT 토큰 기반 인증
@@ -267,6 +308,140 @@ NEXT_PUBLIC_SKIP_AUTH=false
 - ESLint + Prettier를 통한 코드 포맷팅
 - 컴포넌트 기반 아키텍처
 
+## 🚧 기술적 도전과제 및 해결 방법
+
+프로젝트 개발 중 마주한 주요 기술적 도전과제들과 해결 과정을 정리했습니다.
+
+### 1. 배포 시 빌드 오류 및 환경 변수 문제
+
+**문제점:**
+
+- 프로덕션 빌드 시 환경 변수가 제대로 로드되지 않음
+- 빌드 타임과 런타임 환경 변수 처리 차이
+- Next.js의 서버/클라이언트 컴포넌트에서 환경 변수 접근 방식 차이
+
+**해결 방법:**
+
+- `NEXT_PUBLIC_` 접두사를 사용하여 클라이언트에서 접근 가능한 환경 변수 명시
+- `.env.local`, `.env.production` 파일을 분리하여 환경별 설정 관리
+- Vercel 등의 배포 플랫폼에서 환경 변수를 직접 설정
+- 빌드 전 환경 변수 검증 스크립트 추가
+
+```typescript
+// 환경 변수 타입 안정성을 위한 설정
+const isDevelopment = process.env.NODE_ENV === 'development';
+const useMockData =
+  process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true' || isDevelopment;
+```
+
+### 2. 사진 슬라이더 스와이프 시 URL 자동 갱신
+
+**문제점:**
+
+- Embla Carousel로 사진을 스와이프할 때 URL이 변경되지 않아 브라우저 뒤로가기/앞으로가기 시 문제 발생
+- 공유 링크를 클릭했을 때 해당 사진으로 바로 이동하지 못함
+- URL과 현재 보이는 사진이 동기화되지 않음
+
+**해결 방법:**
+
+- `window.history.replaceState`를 활용하여 URL을 업데이트하되 페이지 리로드 없이 처리
+- Embla Carousel의 `select` 이벤트를 감지하여 현재 인덱스에 맞는 URL로 자동 갱신
+- 초기 로드 시 URL의 `photoId`를 파싱하여 해당 인덱스로 캐러셀 이동
+
+```typescript
+// PhotoDetail.tsx
+const updateURL = useCallback(
+  (index: number) => {
+    if (!images[index]) return;
+    const newPhotoId = images[index].id.toString();
+    const newPath = `/groups/${groupId}/albums/${albumId}/photo/${newPhotoId}`;
+    window.history.replaceState(null, '', newPath);
+  },
+  [albumId, groupId, images],
+);
+
+useEffect(() => {
+  if (!emblaApi) return;
+
+  const handleSelect = () => {
+    const selectedIndex = emblaApi.selectedScrollSnap();
+    updateURL(selectedIndex);
+  };
+
+  emblaApi.on('select', handleSelect);
+
+  return () => {
+    emblaApi.off('select', handleSelect);
+  };
+}, [emblaApi, updateURL]);
+```
+
+**결과:**
+
+- 스와이프할 때마다 URL이 자동으로 업데이트되어 브라우저 히스토리 관리가 정상 작동
+- 특정 사진 링크를 공유하면 해당 사진으로 바로 이동 가능
+- 브라우저 뒤로가기/앞으로가기 버튼으로 사진 간 이동 가능
+
+### 3. 그룹별 UI 상태 분리 및 데이터 섞임 방지
+
+**문제점:**
+
+- 사용자가 여러 그룹에 속해 있을 때 그룹을 전환하면 이전 그룹의 데이터가 남아있음
+- React Query 캐시가 그룹별로 분리되지 않아 잘못된 데이터가 표시됨
+- Zustand 스토어의 상태가 그룹 전환 시 초기화되지 않음
+
+**해결 방법:**
+
+- **그룹 ID를 React Query 키에 포함**: 모든 쿼리 키에 `groupId`를 포함하여 그룹별로 캐시 분리
+- **그룹 전환 시 명시적 캐시 무효화**: `queryClient.invalidateQueries()`로 이전 그룹 데이터 제거
+- **Zustand 스토어 초기화**: 그룹 전환 시 관련 스토어 상태 초기화
+- **현재 그룹 ID 관리**: `useUserStore`의 `currentGroupId`를 중앙에서 관리하여 일관성 유지
+
+```typescript
+// 그룹별 쿼리 키 구조
+const queryKey = ['groups', groupId, 'albums', albumId, 'media'];
+
+// 그룹 전환 시
+const handleSetCurrentGroup = () => {
+  if (window.confirm('현재 그룹으로 설정하시겠습니까?')) {
+    // 1. 이전 그룹의 캐시 무효화
+    queryClient.invalidateQueries({
+      queryKey: ['groups', previousGroupId],
+    });
+
+    // 2. 현재 그룹 ID 업데이트
+    setCurrentGroupId(Number(groupId));
+
+    // 3. 관련 스토어 초기화
+    clearGroup();
+    refreshAlbums();
+
+    router.push('/home');
+  }
+};
+
+// useEffect로 그룹 ID 변경 감지
+useEffect(() => {
+  if (groupId) {
+    // 그룹별 데이터 페칭
+    fetchGroupData();
+    fetchAlbums();
+  }
+}, [groupId]);
+```
+
+**결과:**
+
+- 그룹 전환 시 이전 그룹의 데이터가 완전히 제거되고 새 그룹 데이터만 표시
+- React Query 캐시가 그룹별로 독립적으로 관리되어 데이터 혼선 방지
+- 사용자가 어떤 그룹에 있든 항상 올바른 데이터만 보게 됨
+
+### 4. 추가 개선 사항
+
+- **무한 스크롤 최적화**: React Intersection Observer를 활용하여 성능 최적화
+- **이미지 로딩 최적화**: Next.js Image 컴포넌트와 lazy loading 적용
+- **에러 핸들링**: 각 API 호출에 대한 에러 바운더리 및 폴백 UI 구현
+
 ## 🤝 기여하기
 
 이 프로젝트는 팀 프로젝트로 개발되었습니다. 기여 방법:
@@ -283,8 +458,8 @@ NEXT_PUBLIC_SKIP_AUTH=false
 
 ## 👥 팀원
 
-- Frontend Developer 김영욱 이윤경
-- Backend Developer  김동현 우연정
+- Frontend Developer  김영욱 이윤경
+- Backend Developer   김동현 우연정
 
 ---
 
