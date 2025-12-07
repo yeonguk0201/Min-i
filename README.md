@@ -241,23 +241,23 @@ NEXT_PUBLIC_SKIP_AUTH=false
    - 최근 콘텐츠 캐러셀
    - 액션 버튼들 (질문 만들기, 초대하기 등)
    - 
-홈<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/bfa7b97a-b454-4d0b-b584-d66411d4a982" />
+<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/bfa7b97a-b454-4d0b-b584-d66411d4a982" />
 
 2. **앨범 목록** (`/groups/[id]/albums`)
 
    - 그리드 레이아웃의 앨범 카드들
    - 각 앨범의 썸네일 이미지들
    - 
-앨범<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/7a7d7aa6-fb9d-4430-8335-148a3fa5eb77" />
-사이드바<img width="195" height="425" alt="Image" src="https://github.com/user-attachments/assets/ffaeffbe-2449-40e4-bbe0-ccb810fca21e" />
+<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/7a7d7aa6-fb9d-4430-8335-148a3fa5eb77" />
+<img width="195" height="425" alt="Image" src="https://github.com/user-attachments/assets/ffaeffbe-2449-40e4-bbe0-ccb810fca21e" />
 
 3. **사진 상세 (캐러셀)** (`/groups/[id]/albums/[albumId]/photo/[photoId]`)
 
    - Embla Carousel을 활용한 스와이프 가능한 사진 뷰
    - 좋아요 버튼, 작성자 정보, 스토리 보기 기능
 
-앨범<img width="193" height="424" alt="Image" src="https://github.com/user-attachments/assets/5f17d59c-4f3a-4a8e-87d8-6fab4239f0e5" />
-앨범 클릭<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/19b21dcb-3b1b-4d11-beb4-20dd98e6649d" />
+<img width="193" height="424" alt="Image" src="https://github.com/user-attachments/assets/5f17d59c-4f3a-4a8e-87d8-6fab4239f0e5" />
+<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/19b21dcb-3b1b-4d11-beb4-20dd98e6649d" />
 
 4. **프로필 및 그룹 관리** (`/profile`)
    - 사용자 정보
