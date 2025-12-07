@@ -242,6 +242,12 @@ NEXT_PUBLIC_SKIP_AUTH=false
    - 그룹 정보 헤더
    - 최근 콘텐츠 캐러셀
    - 액션 버튼들 (질문 만들기, 초대하기 등)
+<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/89f9846f-1a75-404a-b72c-fdf43405a8e7" />
+<img width="194" height="423" alt="Image" src="https://github.com/user-attachments/assets/ee6b96f6-1e8a-4b86-9d77-b6543da9b03e" />
+<img width="195" height="425" alt="Image" src="https://github.com/user-attachments/assets/b19d370c-aad0-4d62-96fc-45f826697d9a" />
+<img width="193" height="424" alt="Image" src="https://github.com/user-attachments/assets/db314304-4a04-470c-aa8e-c18c4fce83f6" />
+<img width="610" height="1021" alt="Image" src="https://github.com/user-attachments/assets/627fbf21-6114-4cc4-bc66-62a569ec6965" />
+<img width="599" height="1005" alt="Image" src="https://github.com/user-attachments/assets/52abbd79-92f6-4ba2-93ba-e29690780df3" />
 
 2. **앨범 목록** (`/groups/[id]/albums`)
 
